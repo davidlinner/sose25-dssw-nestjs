@@ -1,0 +1,13 @@
+body {
+    font-family: sans-serif;
+}
+
+.message-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.simple-form {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,11 @@
+{{> navigation}}
+<ul class="message-list">
+  {{#each messages}}
+    <li>
+      <h3>{{title}}</h3>
+      <article>{{message}}</article>
+      <div>{{author}}</div>
+    </li>
+  {{/each}}
+</ul>
+<a href="/messages/add">Add new post</a>
