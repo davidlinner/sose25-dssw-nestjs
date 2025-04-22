@@ -1,25 +1,15 @@
-/**
- * Adds geo location on load to hidden form input fields
- */
-window.addEventListener('DOMContentLoaded', (event) => {
-  if (!navigator.geolocation) {
-    console.error('Geolocation is not supported by your browser');
-  } else {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+window.addEventListener('DOMContentLoaded', async (event) => {
+  const response = await fetch('/messages');
 
-        const inLatitude = document.querySelector('input#latitude');
-        const inLongitude = document.querySelector('input#longitude');
+  if(response.status === 200){
+    const ul = document.querySelector("#message-list");
 
-        inLatitude.value = latitude;
-        inLongitude.value = longitude;
+    const messages = await response.json();
 
-      },
-      (error) => {
-        console.error('Geolocation not resolved.');
-      },
-    );
+    const listItems = messages.map(message => `
+      <li>${message.title}</li>
+    `).join()
+
+    ul.innerHTML = listItems;
   }
 });
