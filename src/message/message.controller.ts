@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Redirect, Render } from '@nestjs/common';
 import { MessageService, Message } from './message.service';
 
 @Controller('messages')
@@ -17,9 +17,15 @@ export class MessageController {
   @Render('message-form')
   getMessageForm() {}
 
+  @Get('/delete')
+  @Redirect('/messages')
+  async deleteMessage(@Query('message-id') messageId: string) {
+    await this.messageService.removeMessage(messageId);
+  }
+
   @Post()
   @Redirect('/messages')
-  async addMessage(@Body() post: Message) {
-    await this.messageService.addMessage(post);
+  async addMessage(@Body() message: Message) {
+    await this.messageService.addMessage(message);
   }
 }
